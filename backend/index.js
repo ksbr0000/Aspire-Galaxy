@@ -7,7 +7,8 @@ import userRoute from "./routes/user.route.js";
 import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
-
+import path from "path";
+import { fileURLToPath } from "url"; // Required to define __dirname in ES modules
 
 dotenv.config();
 
@@ -23,8 +24,11 @@ const corsOptions = {
     credentials: true,
 };
 
-
 app.use(cors(corsOptions));
+
+// Define __dirname since it's not available in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 3000;
 
@@ -34,10 +38,12 @@ app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
 
+// Serve static files from the frontend dist directory
+app.use(express.static(path.join(__dirname, '../frontend/dist')));  // Serving from 'dist' now
 
-
-app.get('/', (req, res) => {
-    res.send('Welcome to the Job Portal API! Use the /api/v1/ routes to interact with the API.');
+// Catch-all to serve index.html (for React's client-side routing)
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));  // Serving 'dist' folder
 });
 
 // Connect to the database and start the server
