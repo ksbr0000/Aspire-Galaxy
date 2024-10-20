@@ -39,11 +39,11 @@ app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
 
 // Serve static files from the frontend dist directory
-app.use(express.static(path.join(__dirname, '../frontend/')));  // Serving from 'dist' now
+app.use(express.static(path.join(__dirname, '../frontend/dist')));  // Serving from 'dist' now
 
 // Catch-all to serve index.html (for React's client-side routing)
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/index.html'));  // Serving 'dist' folder
+    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));  // Serving 'dist' folder
 });
 
 // Connect to the database and start the server
