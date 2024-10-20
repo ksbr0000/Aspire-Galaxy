@@ -7,7 +7,7 @@
         "dest": "/"
       },
       {
-        "src": "frontend/dest/index.html",
+        "src": "frontend/dist/index.html",
         "dest": "/"
       }
     ]
